@@ -1,14 +1,26 @@
 			jQuery(document).ready(function () {
 			
 			
-				var thumbs = jQuery('#cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
+				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
 
-				jQuery('#cycleContainer').after('<ul id="cycle-nav" class="cyclenav"></ul>');
+				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav"></ul>');
 				
 				jQuery('#cycle-nav').before('<div id="cycle-prev" class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div id="cycle-next" class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				
+				//Making individual slides linkable via http://jquery.malsup.com/cycle/perma.html
+				jQuery(function() {
+				
+					var index = 0, hash = window.location.hash;
+					if (hash) {
+					
+						index = /\d+/.exec(hash)[0];
+						index = (parseInt(index) || 1) - 1;
+					
+					}
+				
+				});
 			
-				jQuery('#cycleContainer').cycle({
+				jQuery('.cycleContainer').cycle({
 					fx: 'fade',
 					autostop: false,
 					delay: 2000,
@@ -20,7 +32,9 @@
 					fit: 1,
 					prev: '.prev',
 					next: '.next',
-
+					after: function(curr,next,opts){
+								window.location.hash = opts.currSlide + 1;
+							},
 					pager: '#cycle-nav',
 					pagerEvent: 'mouseover',
 					fastOnEvent: true,

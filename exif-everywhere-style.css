@@ -1,0 +1,110 @@
+.cycleContainer {
+
+	overflow: hidden;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #EEE;
+	border:1px solid #d6d6d6;
+	border-radius: 6px;
+	padding-bottom: 40px;
+	height: 380px;
+	float: left;
+	width: 100%;
+
+}
+
+.cycleContainer img {
+
+	width: 100%!important;
+
+}
+
+#cycle-nav { 
+
+	float: left;
+	margin: 0;
+
+}
+#cycle-nav li { width: 58px; float: left; margin: 8px 4px; list-style: none }
+#cycle-nav a { 
+
+	width: 50px; padding: 3px; display: block; border: 1px solid #ccc; 
+	background-color: white;
+	
+}
+#cycle-nav li.active a { background: #88f }
+#cycle-nav a:focus { outline: none; border-color: #F89406; }
+#cycle-nav img { border: none; display: block }
+
+.arrow-e, .arrow-w {
+
+  /*
+   * In Internet Explorer, The"border-style: dashed" will never be
+   * rendered unless "(width * 5) >= border-width" is true.
+   * Since "width" is set to "0", the "dashed-border" remains
+   * invisible to the user, which renders the border just like how
+   * "border-color: transparent" renders.
+   * From: http://hedgerwow.appspot.com/demo/arrows
+   */
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 0.53em;
+  display: -moz-inline-box;
+  display: inline-block;
+  /* Use font-size to control the size of the arrow. */
+  font-size: 40px;
+  height: 0;
+  line-height: 0;
+  position: relative;
+  vertical-align: middle;
+  width: 0;
+
+}
+.arrow-e{
+  border-left-width: 1em;
+  border-left-style: solid;
+  border-left-color: #666;
+  left: 0.25em;
+}
+.arrow-w {
+  border-right-width: 1em;
+  border-right-style: solid;
+  border-right-color: #666;
+  right: 0.25em;
+}
+
+.nav-container {
+
+	width: 526px;
+	float: left; 
+
+}
+
+.cyclenav {
+
+	margin-top: 8px;
+	display:block;
+
+}
+
+.cyclenav.next {
+
+	float:right;
+	margin-left: 4px;
+
+
+}
+
+.cyclenav.prev {
+
+	float:left;
+	margin-right: 4px;
+
+
+}
+
+.disapear {
+
+	display:none!important;
+
+}

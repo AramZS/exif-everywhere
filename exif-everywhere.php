@@ -53,7 +53,34 @@ function exif_gallery_shortcode($atts){
 add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
 
 //Adding photo credit option to the upload image interface.
-//We will call this later using echo get_post_meta($post_thumbnail_id, '_photocredit', true);
+//We will call this later using:
+/*
+
+					if (has_post_thumbnail() ) {
+					
+						echo '<div class="single-post-thumb">';
+					
+							$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+						
+							the_post_thumbnail( 'main-thumb' );
+							
+							echo '<div class="thumb-caption">';
+								
+								echo get_the_excerpt_here($post_thumbnail_id);
+							
+							echo '</div>';
+							
+							echo '<div class="single-post-thumb-credit">';
+							
+								echo 'Photo by: ';
+								echo get_post_meta($post_thumbnail_id, '_photocredit', true);
+								
+							echo '</div>';
+					
+						echo '</div>';
+					}
+
+*/
 function add_photo_credit_option( $form_fields, $post ) {  
 	
 	$form_fields['photocredit'] = array(  
