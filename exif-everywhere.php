@@ -35,6 +35,7 @@ License: GPL2
 function exif_gallery_shortcode($atts){
 
 //To make this as easy to use and as feature-rich as possible, we'll duplicate some of the same options as the default gallery shortcode.
+//Find the original at wp-includes/media.php ln 777
 
 		extract( shortcode_atts( array(
 			'for' => 'Chronotope',
