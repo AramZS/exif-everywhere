@@ -43,6 +43,7 @@ function exif_gallery_shortcode($atts){
 			'title' => 'Gallery',
 			'fontsize' => '1em',
 			'share' => 'on',
+			'embed' => 'on',
 			'order' => 'ASC',
 			'orderby' => 'menu_order ID',
 			'size' => 'large'
