@@ -1,6 +1,6 @@
 			jQuery(document).ready(function () {
 			
-			
+				var counter = 0;
 				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
 
 				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav scrollable"></ul>');
@@ -42,7 +42,13 @@
 						},
 						updateActivePagerLink: function(pager, currSlideIndex) {
 						
-						
+						//Have to include this if else statement because jQuery Tools is causing a conflict. 
+						//The conflict is that it clones the first item and puts it on the end and
+						// does the opposite for the last item. 
+							var countThumbs = (thumbs.length);
+							
+							
+							
 							if (currSlideIndex == 0){ 
 								currSlideIndex = 0;
 							} else {
@@ -50,7 +56,16 @@
 							currSlideIndex = currSlideIndex + 1;
 							
 							}
+							
+							if (counter == countThumbs ) {
+							
+								currSlideIndex = 1;
+								counter = 0;
+						
+							} 
 							jQuery(pager).find('li').removeClass('active').filter('li:eq('+(currSlideIndex)+')').addClass('active');
+							counter = counter+1;
+							
 						}
 						
 
@@ -63,12 +78,17 @@
 	jQuery(function() {
 	  // initialize scrollable
 	  //This will only take .prev and .next as navigation items, so can't use those above. 
-		$(".scrollable").scrollable({circular: true, mousewheel: true}).autoscroll({
-			interval: 7000
+		jQuery(".scrollable").scrollable({circular: true, mousewheel: true}).autoscroll({
+			interval: 6900
 		});
+		
+		//This is a nasty fix for a stupid problem. 
+		jQuery(".cloned").addClass('hidden');
 	});
+	
+
 				
-			});
+});
 			
 			
 //function(idx, slide) {

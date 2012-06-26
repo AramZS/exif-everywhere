@@ -109,12 +109,19 @@
 
 }
 
+.hidden {
+
+	visibility: hidden;
+	
+}
+
 .scrollable {
   /* required settings */
   position:relative;
   overflow:hidden;
-  width: 200px;
-  height:58px;
+  width: 100%;
+  max-width: 800px;
+  height:60px;
 }
 
 .scrollable .items {
