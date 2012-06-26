@@ -108,3 +108,24 @@
 	display:none!important;
 
 }
+
+.scrollable {
+  /* required settings */
+  position:relative;
+  overflow:hidden;
+  width: 200px;
+  height:58px;
+}
+
+.scrollable .items {
+  /* this cannot be too large */
+  position:absolute;
+}
+ 
+/*
+a single item. must be floated in horizontal scrolling.  typically,
+this element is the one that *you* will style the most.
+*/
+.item {
+  float:left;
+}

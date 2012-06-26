@@ -1,11 +1,12 @@
 <html>
 <head>
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-	<script src="js/jquery.cycle.all.js" type="text/javascript"></script>
-	<script src="js/cycle-imp.js" type="text/javascript"></script>
 	<script src="js/lightbox.js" type="text/javascript"></script>
+	<script src="js/jquery.tools.min.js"></script>
+		<script src="js/jquery.cycle.all.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="css/exif-everywhere-style.css" type="text/css">
 	<link href="css/lightbox.css" rel="stylesheet" />
+		<script src="js/cycle-imp.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="cycle-control">
@@ -19,6 +20,8 @@
        <div class="cycleContainer">
 			
 			<?php
+			
+				
 			
 				//Using code from http://net.tutsplus.com/tutorials/php/quick-tip-loop-through-folders-with-phps-glob/ to build a quick demo
 			

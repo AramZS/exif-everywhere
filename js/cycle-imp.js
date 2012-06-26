@@ -3,7 +3,7 @@
 			
 				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
 
-				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav"></ul>');
+				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav scrollable"></ul>');
 				
 				jQuery('#cycle-nav').before('<div id="cycle-prev" class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div id="cycle-next" class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				
@@ -23,7 +23,6 @@
 				jQuery('.cycleContainer').cycle({
 					fx: 'fade',
 					autostop: false,
-					delay: 2000,
 					timeout: 7000,
 					pause: true,
 					slideResize: true,
@@ -33,23 +32,41 @@
 					prev: '.prev',
 					next: '.next',
 					after: function(curr,next,opts){
-								window.location.hash = opts.currSlide + 1;
+								window.location.hash = opts.currSlide+1;
 							},
 					pager: '#cycle-nav',
 					pagerEvent: 'mouseover',
 					fastOnEvent: true,
 					pagerAnchorBuilder: function (index) {
-						return '<li><a href="#"><img src="' + thumbs[index] + '" width="50" height="50" /></a></li>';
+						return '<li class="item"><a href="#"><img src="' + thumbs[index] + '" width="50" height="50" /></a></li>';
 						},
 						updateActivePagerLink: function(pager, currSlideIndex) {
-							jQuery(pager).find('li').removeClass('active').filter('li:eq('+currSlideIndex+')').addClass('active');
+						
+						
+							if (currSlideIndex == 0){ 
+								currSlideIndex = 0;
+							} else {
+							
+							currSlideIndex = currSlideIndex + 1;
+							
+							}
+							jQuery(pager).find('li').removeClass('active').filter('li:eq('+(currSlideIndex)+')').addClass('active');
 						}
 						
 
 				});
 
 				jQuery('.cyclenav').wrapAll('<div class="nav-container"></div>');
+				jQuery('.item').wrapAll('<div class="items"></div>');
 				// jQuery('#cycle-next').after('</div>');
+				
+	jQuery(function() {
+	  // initialize scrollable
+	  //This will only take .prev and .next as navigation items, so can't use those above. 
+		$(".scrollable").scrollable({circular: true, mousewheel: true}).autoscroll({
+			interval: 7000
+		});
+	});
 				
 			});
 			
