@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Twitter Archival Shortcode
-Plugin URI: http://aramzs.me/twitterarchival
-Description: This plugin allows you to place a shortcode in your post that will archive a Twitter search term, including hashtags. 
-Version: 0.67
+Plugin Name: EXIF Everywhere
+Plugin URI: http://aramzs.me/exifeverywhere
+Description: This plugin allows you to place a responsive and exif aware slideshow in your WordPress site. 
+Version: 0.1
 Author: Aram Zucker-Scharff
 Author URI: http://aramzs.me
 License: GPL2
@@ -27,8 +27,45 @@ License: GPL2
 
 /*
 	Based on plugin Display Exif - http://wordpress.org/extend/plugins/display-exif/
+	Built for the CUNY Graduate Journalism School
 */
 
+
+//Set up the shortcode
+function exif_gallery_shortcode($atts){
+
+//To make this as easy to use and as feature-rich as possible, we'll duplicate some of the same options as the default gallery shortcode.
+
+		extract( shortcode_atts( array(
+			'for' => 'Chronotope',
+			'exif' => 'yes',
+			'autoplay' => 'yes',
+			'title' => 'Gallery',
+			'fontsize' => '1em',
+			'share' => 'on',
+			'order' => 'ASC',
+			'orderby' => 'menu_order ID',
+			'size' => 'large'
+		), $atts ) );
+
+}
+
+add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
+
+//Adding photo credit option to the upload image interface.
+//We will call this later using echo get_post_meta($post_thumbnail_id, '_photocredit', true);
+function add_photo_credit_option( $form_fields, $post ) {  
+	
+	$form_fields['photocredit'] = array(  
+		'label' => '<span style="color:#ff0000; margin:0; padding:0;">'.__('Photo Credit').'</span> <br />'.__('Add Photographer Name / Photo Type to image'),
+		'input' => 'text',
+		'value' => get_post_meta($post->ID, '_photocredit', true)  
+	);
+	  
+	return $form_fields;
+}  
+
+add_filter('attachment_fields_to_edit', 'add_photo_credit_option', null, 2);
 
 function photo_taxonomy_init() {
 	// create a new taxonomy
