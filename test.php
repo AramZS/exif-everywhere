@@ -14,7 +14,7 @@
 			<h2>Title</h2>
 		</div>
 		<div class="cycle-controls">
-			EXIF Play Stop Full Screen
+			EXIF <a id="resumeButton" onClick="api.play()" href="#">Play</a> <a id="pauseButton" onClick="api.pause()" href="#">Stop</a> Full Screen
 		</div>
 	</div>
        <div class="cycleContainer">

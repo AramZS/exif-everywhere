@@ -46,7 +46,8 @@
 						//The conflict is that it clones the first item and puts it on the end and
 						// does the opposite for the last item. 
 							var countThumbs = (thumbs.length);
-							
+						//A thought - we could use this variable to determine maximum required width
+						//And if the nav isn't that width, don't bother executing scrollable.
 							
 							
 							if (currSlideIndex == 0){ 
@@ -81,16 +82,25 @@
 		jQuery(".scrollable").scrollable({circular: true, mousewheel: true}).autoscroll({
 			interval: 6900
 		});
+	
+		//Scrollable API usage at http://www.jquerytools.org/documentation/scrollable/autoscroll.html
+		//Method of use http://www.jquerytools.org/documentation/scripting.html
+	
+		var scrollableapi = jQuery(".scrollable").data("scrollable");
 		
 		//This is a nasty fix for a stupid problem. 
 		jQuery(".cloned").addClass('hidden');
 		
+		
+		//We need to do these as buttons so they don't screw up the linkable hash.
 		jQuery('#pauseButton').click(function() { 
 			jQuery('.cycleContainer').cycle('pause'); 
+			scrollableapi.stop();
 		});
 		
 		jQuery('#resumeButton').click(function() { 
 			jQuery('.cycleContainer').cycle('resume'); 
+			scrollableapi.play();
 		});
 		
 		jQuery('.scrollable').mouseenter(function() {
@@ -99,6 +109,15 @@
 			jQuery('.cyclerContainer').cycle('resume');
 		
 		});
+		
+		jQuery('.cycleContainer').mouseenter(function() {
+			scrollableapi.pause();
+		}).mouseleave(function(){
+			scrollableapi.play();
+			//This creates additional delay before restarting. Dunno why. Need to fix. 
+		});
+		
+
 		
 	});
 
