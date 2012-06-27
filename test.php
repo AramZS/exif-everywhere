@@ -2,7 +2,7 @@
 <head>
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script src="js/lightbox.js" type="text/javascript"></script>
-	<script src="js/jquery.tools.min.js"></script>
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
 		<script src="js/jquery.cycle.all.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="css/exif-everywhere-style.css" type="text/css">
 	<link href="css/lightbox.css" rel="stylesheet" />

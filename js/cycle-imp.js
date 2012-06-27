@@ -84,8 +84,23 @@
 		
 		//This is a nasty fix for a stupid problem. 
 		jQuery(".cloned").addClass('hidden');
+		
+		jQuery('#pauseButton').click(function() { 
+			jQuery('.cycleContainer').cycle('pause'); 
+		});
+		
+		jQuery('#resumeButton').click(function() { 
+			jQuery('.cycleContainer').cycle('resume'); 
+		});
+		
+		jQuery('.scrollable').mouseenter(function() {
+			jQuery('.cycleContainer').cycle('pause');
+		}).mouseleave(function(){
+			jQuery('.cyclerContainer').cycle('resume');
+		
+		});
+		
 	});
-	
 
 				
 });
