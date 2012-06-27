@@ -96,6 +96,7 @@ function add_photo_credit_option( $form_fields, $post ) {
 
 add_filter('attachment_fields_to_edit', 'add_photo_credit_option', null, 2);
 
+/* This can be used later to create a taxonomy for the exif properties.
 function photo_taxonomy_init() {
 	// create a new taxonomy
 	register_taxonomy(
@@ -108,6 +109,7 @@ function photo_taxonomy_init() {
 	);
 }
 add_action( 'init', 'photo_taxonomy_init' );
+*/
 
 function display_exif_get_default_option_value() {
 	$display_exif_switches_default_value = array(

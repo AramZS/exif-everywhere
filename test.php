@@ -26,6 +26,8 @@
 				
 			
 				//Using code from http://net.tutsplus.com/tutorials/php/quick-tip-loop-through-folders-with-phps-glob/ to build a quick demo
+				
+				//http://localhost/xampp/wp-test/wp-content/plugins/exif-everywhere/test.php
 			
 				$dir = "testimgs/*";
 				
