@@ -139,6 +139,15 @@ this element is the one that *you* will style the most.
   float:left;
 }
 
+.exif-data {
+/* this will need to be adjusted once we get image sizing right */
+	position:absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 1000;
+
+}
+
 #fullbox {
 
 	position:fixed;
