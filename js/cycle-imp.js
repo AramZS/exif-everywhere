@@ -8,7 +8,7 @@
 				jQuery('#cycle-nav').before('<div id="cycle-prev" class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div id="cycle-next" class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				
 				//Making individual slides linkable via http://jquery.malsup.com/cycle/perma.html
-				jQuery(function() {
+			
 				
 					var index = 0, hash = window.location.hash;
 					if (hash) {
@@ -18,11 +18,12 @@
 					
 					}
 				
-				});
+				
 			
 				jQuery('.cycleContainer').cycle({
 					fx: 'fade',
 					autostop: false,
+					startingSlide: index,
 					timeout: 7000,
 					pause: true,
 					slideResize: true,
@@ -32,7 +33,7 @@
 					prev: '.prev',
 					next: '.next',
 					after: function(curr,next,opts){
-								window.location.hash = opts.currSlide+1;
+								window.location.hash = opts.currSlide + 1;
 							},
 					pager: '#cycle-nav',
 					pagerEvent: 'mouseover',

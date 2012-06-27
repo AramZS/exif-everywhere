@@ -21,8 +21,9 @@
 
 #cycle-nav { 
 
-	float: left;
-	margin: 0;
+	margin: 0 auto;
+	width: 80%;
+	padding: 0;
 
 }
 #cycle-nav li { width: 58px; float: left; margin: 8px 4px; list-style: none; }
@@ -55,7 +56,7 @@
   display: -moz-inline-box;
   display: inline-block;
   /* Use font-size to control the size of the arrow. */
-  font-size: 40px;
+  font-size: 2.5em;
   height: 0;
   line-height: 0;
   position: relative;
@@ -78,9 +79,7 @@
 
 .nav-container {
 
-	width: 526px;
-	float: left; 
-
+	width: 100%;
 }
 
 .cyclenav {
@@ -90,7 +89,7 @@
 
 }
 
-.cyclenav.next {
+.cyclenav.next, .sliderNext {
 
 	float:right;
 	margin-left: 4px;
@@ -98,7 +97,7 @@
 
 }
 
-.cyclenav.prev {
+.cyclenav.prev, .sliderPrev {
 
 	float:left;
 	margin-right: 4px;
