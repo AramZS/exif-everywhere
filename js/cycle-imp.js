@@ -112,9 +112,11 @@
 		
 		jQuery('.cycleContainer').mouseenter(function() {
 			scrollableapi.pause();
+
 		}).mouseleave(function(){
 			scrollableapi.play();
 			//This creates additional delay before restarting. Dunno why. Need to fix. 
+			
 		});
 		
 
