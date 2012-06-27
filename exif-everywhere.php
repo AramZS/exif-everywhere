@@ -38,7 +38,7 @@ function exif_gallery_shortcode($atts){
 //Find the original at wp-includes/media.php ln 777
 
 		extract( shortcode_atts( array(
-			'for' => 'Chronotope',
+			'get' => '',
 			'exif' => 'yes',
 			'autoplay' => 'yes',
 			'title' => 'Gallery',
@@ -55,7 +55,7 @@ function exif_gallery_shortcode($atts){
 add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
 
 //Adding photo credit option to the upload image interface.
-//We will call this later using:
+//We will call this later using something like:
 /*
 
 					if (has_post_thumbnail() ) {

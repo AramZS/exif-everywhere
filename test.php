@@ -9,16 +9,18 @@
 		<script src="js/cycle-imp.js" type="text/javascript"></script>
 </head>
 <body>
+<div class="overall-cycle-container">
+<div class="overall-cycle-contained">		
 	<div class="cycle-control">
 		<div class="cycle-title">
 			<h2>Title</h2>
 		</div>
 		<div class="cycle-controls">
-			EXIF <a id="resumeButton" onClick="api.play()" href="#">Play</a> <a id="pauseButton" onClick="api.pause()" href="#">Stop</a> Full Screen
+			<a id="exifButton" href="#">EXIF</a> <a id="resumeButton" onClick="api.play()" href="#">Play</a> <a id="pauseButton" onClick="api.pause()" href="#">Stop</a> <a id="fullButton" href="#">Full Screen</a>
 		</div>
 	</div>
 	
-<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> <hr /> 	
+<!--<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> -->	
        <div class="cycleContainer">
 			
 			<?php
@@ -35,6 +37,7 @@
 					
 						echo '<div class="slide">';
 							echo '<a href="'. $file . '" rel="lightbox"><img src="' . $file . '" /></a>';
+							echo '<div class="exif-data disappear">Some EXIF info</div>';
 							echo '<div class="caption">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec sapien sit amet diam pretium adipiscing. Phasellus euismod mi tincidunt elit mattis sit amet tincidunt est varius. Nunc pretium augue at nibh lacinia sit amet feugiat massa interdum. 
 								</div>
@@ -46,6 +49,7 @@
 			?>
         
         </div><!-- end of #cycleContainer -->
-
+</div>
+</div>
 </body>
 </html>

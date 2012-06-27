@@ -8,7 +8,7 @@
 				jQuery('#cycle-nav').before('<div class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				
 				//Making individual slides linkable via http://jquery.malsup.com/cycle/perma.html
-			
+				//Due to jQuery tools if you come in on load, wrong active is set. 
 				
 					var index = 0, hash = window.location.hash;
 					if (hash) {
@@ -121,7 +121,73 @@
 			
 		});
 		
+		jQuery('#exifButton').toggle(
+		
+			function(){
+				jQuery('.exif-data').removeClass('disappear'); 
+			},
+			function() { 
+				jQuery('.exif-data').addClass('disappear'); 
+			}
+			
+		);
 
+		
+		//When we create the fullscreen, let's pause the thing beneath it. We can resume it later on clicking the full screen close button.
+		//Based off of code at http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/super-simple-lightbox-with-css-and-jquery/
+		jQuery('#fullButton').click(function(e) { 
+			e.preventDefault();
+			if (jQuery('#fullbox').length > 0) {
+				jQuery('#contained').html('<div class="overall-full-cycle-container"></div>')
+			} else {
+			
+				var fullbox =
+					'<div id="fullbox">' +
+						'<div id="contained">' + //insert clicked link's href into img src
+							'<center><div class="overall-full-cycle-container"></div></center>' +
+						'</div>' +
+						'<div id="full-close"><button type="button" class="close-button">Close</button></div>' +
+					'</div>';
+				 
+					//insert lightbox HTML into page
+					jQuery('body').append(fullbox);
+					
+
+			}
+			
+			//jQuery('.overall-cycle-contained').clone(true).appendTo('.overall-full-cycle-container')
+			var cycleToCopy = jQuery('.overall-cycle-contained');
+			var cycleCopy = jQuery.extend(true, {}, cycleToCopy);
+			jQuery(cycleCopy).appendTo('.overall-full-cycle-container');
+			jQuery('#fullButton').addClass('disappear'); //Can't go full screen from full screen.
+			
+			/**scrollableapi.pause();
+			jQuery('.overall-cycle-container .cycleContainer').cycle('pause');**/
+			
+			//Also, let's avoid visual conflict disappearing the underneath item to reappear it later. 
+			jQuery('.overall-cycle-container').addClass('hidden');
+			
+			jQuery('.close-button').click(function() {
+			
+				//I'm not sure why the above extend is not properly cloning instead of moving.
+				//Have to look further at documentation.
+				//Until then, here's a stupid fix. 
+				var cycleToCopy = jQuery('.overall-cycle-contained');
+				var cycleCopy = jQuery.extend(true, {}, cycleToCopy);
+				jQuery(cycleCopy).appendTo('.overall-cycle-container');
+				/** 	A lot of these lightbox scripts just sort of store the container for later.
+						However, I don't think it is likely in this case that users are going to go
+						and reopen fullscreen after they have closed it. So let's just get rid of the thing.
+				**/
+				jQuery('#fullbox').remove();
+				jQuery('.overall-cycle-container').removeClass('hidden');
+				jQuery('#fullButton').removeClass('disappear'); 
+				jQuery('.overall-cycle-container .cycleContainer').cycle('resume');
+
+			
+			});
+			
+		});
 		
 	});
 
