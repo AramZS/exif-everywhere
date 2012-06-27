@@ -5,7 +5,7 @@
 
 				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav scrollable"></ul>');
 				
-				jQuery('#cycle-nav').before('<div id="cycle-prev" class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div id="cycle-next" class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
+				jQuery('#cycle-nav').before('<div class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				
 				//Making individual slides linkable via http://jquery.malsup.com/cycle/perma.html
 			
@@ -30,8 +30,8 @@
 					containerResize: false,
 					width: '100%',
 					fit: 1,
-					prev: '.prev',
-					next: '.next',
+					prev: '.sliderPrev',
+					next: '.sliderNext',
 					after: function(curr,next,opts){
 								window.location.hash = opts.currSlide + 1;
 							},
@@ -86,6 +86,7 @@
 	
 		//Scrollable API usage at http://www.jquerytools.org/documentation/scrollable/autoscroll.html
 		//Method of use http://www.jquerytools.org/documentation/scripting.html
+		//May need to implement this - http://www.jquerytools.org/forum/tools/35/98118
 	
 		var scrollableapi = jQuery(".scrollable").data("scrollable");
 		

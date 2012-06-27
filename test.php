@@ -17,6 +17,8 @@
 			EXIF <a id="resumeButton" onClick="api.play()" href="#">Play</a> <a id="pauseButton" onClick="api.pause()" href="#">Stop</a> Full Screen
 		</div>
 	</div>
+	
+<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> <hr /> 	
        <div class="cycleContainer">
 			
 			<?php
