@@ -122,6 +122,54 @@ function style_exif_slider_plugin () {
 
 add_action( 'wp_enqueue_scripts', 'style_exif_slider_plugin', 1 );
 
+		$wpver = get_bloginfo('version');
+		$floatWPVer = floatval($wpver);
+
+	//echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>';
+	//Ref:WordPress Bible pg 90
+	
+	if ($floatWPVer >= 3.4){
+
+		function jq_setup() {
+				
+				wp_enqueue_script('jquery');
+				wp_enqueue_script('jquery-cycle', plugins_url('js/jquery.cycle.all.js', __FILE__), array('jquery'));
+				wp_enqueue_script('jquery-tools', plugins_url('js/jquery.tools.min.js', __FILE__), array('jquery'));
+				wp_enqueue_script('jquery-lightbox', plugins_url('js/lightbox.js', __FILE__), array('jquery'));
+				wp_enqueue_script('jquery-cycle-imp', plugins_url('js/cycle-imp.js', __FILE__), array('jquery-cycle', 'jquery-tools'));
+
+		}
+
+		add_action('wp_enqueue_scripts', 'jq_setup');
+	} else {
+			
+		function jq_enqueue() {
+		
+						wp_dequeue_script( 'jquery' );
+						wp_deregister_script( 'jquery' );
+						wp_register_script('jquery', 'http://code.jquery.com/jquery-latest.min.js', '', '1.7.2');
+						wp_enqueue_script('jquery');
+		
+		}
+		add_action('wp_enqueue_scripts', 'jq_enqueue');	
+			
+		function jq_setup() {	
+			?>
+				<!--Needs latest version of jQuery, some sites don't have it
+					
+				<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>-->
+				<script src="<?php echo plugins_url('js/jquery.cycle.all.js', __FILE__); ?>"></script>
+				<script src="<?php echo plugins_url('js/jquery.tools.min.js', __FILE__); ?>"></script>
+				<script src="<?php echo plugins_url('js/lightbox.js', __FILE__); ?>"></script>
+				<script src="<?php echo plugins_url('js/cycle-imp.js', __FILE__); ?>"></script>
+				
+					
+			<?php
+		}
+			
+		add_action('wp_head', 'jq_setup');
+	}
+
 /* This can be used later to create a taxonomy for the exif properties.
 function photo_taxonomy_init() {
 	// create a new taxonomy
