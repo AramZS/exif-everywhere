@@ -50,6 +50,9 @@ function exif_gallery_shortcode($atts){
 			'size' => 'large'
 		), $atts ) );
 
+	
+	
+		
 }
 
 add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
@@ -95,6 +98,29 @@ function add_photo_credit_option( $form_fields, $post ) {
 }  
 
 add_filter('attachment_fields_to_edit', 'add_photo_credit_option', null, 2);
+
+function style_exif_slider_plugin () {
+
+	//Want to replace the default styling applied to tweets? Just add this CSS file to your stylesheet's directory.
+	$theme_style_file = get_stylesheet_directory() . '/user-exif-slider-style.css';
+
+	//If you've added a user override CSS, then it will be used instead of the styling I have in the plugin.
+	if ( file_exists($theme_style_file) ) {
+		wp_register_style( 'user-exif-slider-style', $theme_style_file );
+		wp_enqueue_style( 'user-exif-slider-style' );
+	}
+	//If not, you get the default styling. 
+	else {
+		wp_register_style( 'exif-slider-style', plugins_url('css/exif-everywhere-style.css', __FILE__) );
+		wp_enqueue_style( 'exif-slider-style' );
+	}
+	
+	wp_register_style( 'lightbox', plugins_url('css/lightbox.css', __FILE__) );
+	wp_enqueue_style( 'lightbox' );
+
+}
+
+add_action( 'wp_enqueue_scripts', 'style_exif_slider_plugin', 1 );
 
 /* This can be used later to create a taxonomy for the exif properties.
 function photo_taxonomy_init() {
