@@ -31,32 +31,6 @@ License: GPL2
 */
 
 
-//Set up the shortcode
-function exif_gallery_shortcode($atts){
-
-//To make this as easy to use and as feature-rich as possible, we'll duplicate some of the same options as the default gallery shortcode.
-//Find the original at wp-includes/media.php ln 777
-
-		extract( shortcode_atts( array(
-			'get' => '',
-			'exif' => 'yes',
-			'autoplay' => 'yes',
-			'title' => 'Gallery',
-			'fontsize' => '1em',
-			'share' => 'on',
-			'embed' => 'on',
-			'order' => 'ASC',
-			'orderby' => 'menu_order ID',
-			'size' => 'large'
-		), $atts ) );
-
-	
-	
-		
-}
-
-add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
-
 //Adding photo credit option to the upload image interface.
 //We will call this later using something like:
 /*
@@ -542,6 +516,96 @@ add_filter( 'the_content', 'display_exif_filter', 50 );
 add_action( 'admin_menu', 'display_exif_add_pages');
 
 
-?>
+//Set up the shortcode
+function exif_gallery_shortcode($attr){
+
+//To make this as easy to use and as feature-rich as possible, we'll duplicate some of the same options as the default gallery shortcode.
+//Find the original at wp-includes/media.php ln 777
+
+	global $post;
+
+	static $instance = 0;
+	$instance++;
+
+	// Allow plugins/themes to override the default gallery template.
+	$output = apply_filters('post_gallery', '', $attr);
+	if ( $output != '' )
+		return $output;
+
+	// We're trusting author input, so let's at least make sure it looks like a valid orderby statement
+	if ( isset( $attr['orderby'] ) ) {
+		$attr['orderby'] = sanitize_sql_orderby( $attr['orderby'] );
+		if ( !$attr['orderby'] )
+			unset( $attr['orderby'] );
+	}
+
+		extract( shortcode_atts( array(
+			'get' => '',
+			'exif' => 'yes',
+			'id' => $post->ID,
+			'autoplay' => 'yes',
+			'title' => 'Gallery',
+			'fontsize' => '1em',
+			'share' => 'on',
+			'embed' => 'on',
+			'order' => 'ASC',
+			'orderby' => 'menu_order ID',
+			'size' => 'large'
+		), $attr ) );
+	?>
+	<div class="overall-cycle-container">
+	<div class="overall-cycle-contained">		
+		<div class="cycle-control">
+			<div class="cycle-title">
+				<h2><?php echo $title; ?></h2>
+			</div>
+			<div class="cycle-controls">
+				<?php 
+					if ($exif == 'yes') {
+					?><a id="exifButton" href="#">EXIF</a><?php
+					}
+				?>
+				<a id="resumeButton" onClick="api.play()" href="#">Play</a> 
+				<a id="pauseButton" onClick="api.pause()" href="#">Stop</a> 
+				<a id="fullButton" href="#">Full Screen</a>
+			</div>
+		</div>
+		
+	<!--<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> -->	
+		   <div class="cycleContainer">
+				
+				<?php
+				
+					
+				
+					//Using code from http://net.tutsplus.com/tutorials/php/quick-tip-loop-through-folders-with-phps-glob/ to build a quick demo
+					
+					//http://localhost/xampp/wp-test/wp-content/plugins/exif-everywhere/test.php
+				
+					$dir = "testimgs/*";
+					
+						foreach(glob($dir) as $file) {
+						
+							echo '<div class="slide">';
+								echo '<a href="'. $file . '" rel="lightbox"><img src="' . $file . '" /></a>';
+								echo '<div class="exif-data disappear">Some EXIF info</div>';
+								echo '<div class="caption">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec sapien sit amet diam pretium adipiscing. Phasellus euismod mi tincidunt elit mattis sit amet tincidunt est varius. Nunc pretium augue at nibh lacinia sit amet feugiat massa interdum. 
+									</div>
+									<div class="photog">Photog Name</div>
+								</div><!-- end slide -->';
+						
+						}
+					
+				?>
+			
+			</div><!-- end of #cycleContainer -->
+		</div><!-- end of #overall-cycle-contained -->
+	</div><!-- end of #overall-cycle-container -->
+	<?php
+		
+}
+
+add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
 
 ?>
