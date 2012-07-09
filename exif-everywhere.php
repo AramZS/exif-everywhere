@@ -282,25 +282,19 @@ function display_exif_js( $arg ) {
 	echo $js_source;
 } /* display_exif_js() */
 
-
-
-function display_exif_replace_cb( $matches ) {
+function display_exif_single_replace_cb( $filename ) {
 	global $global_exif_datas;
-	$output = $matches[ 0 ];	// something must return
-
-	$attrs_org = $matches[ 1 ];
-	$dp_str = 'DISPEXIF_' . rand( 10000, 99999 );
 
 	$options = get_option( 'display_exif' );
 	if( !$options ) $options[ 'display_exif_switches' ] = display_exif_get_default_option_value();
 
-	$filename = '';
-	if( preg_match( '/src="(.+?)"/s', $attrs_org, $f ) && !preg_match( '/^"/s', $f[ 1 ] ) ) {
+	
+/*	if( preg_match( '/src="(.+?)"/s', $attrs_org, $f ) && !preg_match( '/^"/s', $f[ 1 ] ) ) {
 		$filename = $f[ 1 ];
 
 		$titletext = '';
 		if( preg_match( '/title="(.+?)"/s', $attrs_org, $t ) && !preg_match( '/^"/s', $t[ 1 ] ) ) $titletext = $t[ 1 ];
-
+*/
 		if( $options[ 'display_exif_thumbnail_support' ] ) $ex_filename = preg_replace( '/-[0-9]{1,3}x[0-9]{1,3}./s', '.', $filename );
 		else $ex_filename = $filename;
 		$exif = @exif_read_data( $ex_filename, 'EXIF' );		// IFD0
@@ -395,15 +389,25 @@ function display_exif_replace_cb( $matches ) {
 
 			if( $titletext && $exif_tag[ 'title' ][ 0 ] ) $exif_array[ $exif_tag[ 'title' ][ 1 ] ] = $titletext;
 
-			$global_exif_datas[ $dp_str ] = $exif_array;
+//			$global_exif_datas[ $dp_str ] = $exif_array;
 
-			$dp_classname = $dp_str;
-			$output = '<img ' . $attrs_org . ' displayexif=".' . $dp_classname . '" />';
+//		foreach( $global_exif_datas as $ged_key => $global_exif_data ) {
+			$data_cells = '';
 
-		} /* if */
+			foreach( $exif_array as $k => $v ) {
+				if( empty( $v ) ) continue;
+				$data_cells .= '<div class="dispexif_raw" >';
+				$data_cells .= '<div class="dispexif_title" >' . $k . '</div>';
+				$data_cells .= '<div class="dispexif_desc" >' . $v . '</div>';
+				$data_cells .= '</div>';
+				
+			} /* foreach */
+//		}
+$data_cells .= 'TESTER';
+//		} /* if */
 	} /* if */
 
-	return( $output );
+	return( $data_cells );
 } /* display_exif_replace_cb() */
 
 
@@ -513,7 +517,7 @@ function display_exif_init_jquery() {
 	if( !is_admin() ) {
 		wp_enqueue_script( 'jquery' );
 	}
-} /* display_exif_init_jquery() */
+}  /* display_exif_init_jquery() */
  
 add_action( 'init', 'display_exif_init_jquery' );
 
@@ -652,6 +656,11 @@ function exif_gallery_shortcode($attr){
 		$output .= '
 				<a href="'. $img[0] . '" rel="lightbox"><img src="' . $img[0] . '" /></a>
 				';
+				
+		$output .= '<div class="exif-data disappear">';
+		$output .= display_exif_single_replace_cb($img[0]);
+		$output .= '</div>';
+				
 		if ( $captiontag && trim($attachment->post_excerpt) ) {
 			$output .= "
 				<{$captiontag} class='wp-caption-text gallery-caption'>
