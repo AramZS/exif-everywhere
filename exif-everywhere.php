@@ -546,8 +546,12 @@ function exif_gallery_shortcode($attr){
 			unset( $attr['orderby'] );
 	}
 
+	
+	
 		extract( shortcode_atts( array(
 			'get' => '',
+			'include' => '',
+			'exclude' => '',
 			'exif' => 'yes',
 			'id' => $post->ID,
 			'autoplay' => 'yes',
@@ -563,30 +567,7 @@ function exif_gallery_shortcode($attr){
 			'orderby' => 'menu_order ID',
 			'size' => 'large'
 		), $attr ) );
-	?>
-	<div class="overall-cycle-container">
-	<div class="overall-cycle-contained">		
-		<div class="cycle-control">
-			<div class="cycle-title">
-				<h2><?php echo $title; ?></h2>
-			</div>
-			<div class="cycle-controls">
-				<?php 
-					if ($exif == 'yes') {
-					?><a id="exifButton" href="#">EXIF</a><?php
-					}
-				?>
-				<a id="resumeButton" onClick="api.play()" href="#">Play</a> 
-				<a id="pauseButton" onClick="api.pause()" href="#">Stop</a> 
-				<a id="fullButton" href="#">Full Screen</a>
-			</div>
-		</div>
 		
-	<!--<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> -->	
-		   <div class="cycleContainer">
-				
-				<?php
-				
 					
 	$columns = "1";
 	$id = intval($id);
@@ -632,6 +613,34 @@ function exif_gallery_shortcode($attr){
 	$output = apply_filters( 'gallery_style', $gallery_style . "\n\t\t" . $gallery_div );
 
 	$i = 0;
+		
+	?>
+	
+	<?php $output .='
+	
+	<div class="overall-cycle-container">
+	<div class="overall-cycle-contained">		
+		<div class="cycle-control">
+			<div class="cycle-title">
+				<h2><?php echo $title; ?></h2>
+			</div>
+			<div class="cycle-controls">
+				'; 
+					if ($exif == 'yes') {
+					$output .= '<a id="exifButton" href="#">EXIF</a>';
+					}
+				$output .='
+				<a id="resumeButton" onClick="api.play()" href="#">Play</a> 
+				<a id="pauseButton" onClick="api.pause()" href="#">Stop</a> 
+				<a id="fullButton" href="#">Full Screen</a>
+			</div>
+		</div>
+		
+	<!--<div id="cycle-prev" class="sliderPrev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div><div id="cycle-next" class="sliderNext"><a class="next" href="#"><span class="arrow-e next"></span></a></div> -->	
+		   <div class="cycleContainer">';
+				
+				
+
 	foreach ( $attachments as $id => $attachment ) {
 		
 		$output .= '<div class="slide">';
@@ -650,14 +659,17 @@ function exif_gallery_shortcode($attr){
 			$output .= '</div>';
 	}
 
-	return $output;
+
 					
 				?>
-			
-			</div><!-- end of #cycleContainer -->
-		</div><!-- end of #overall-cycle-contained -->
-	</div><!-- end of #overall-cycle-container -->
-	<?php
+	<?php		
+	
+			$output .= '</div><!-- end of #cycleContainer -->';
+		$output .= '</div><!-- end of #overall-cycle-contained -->';
+	$output .= '</div><!-- end of #overall-cycle-container -->';
+	
+
+	return $output;
 		
 }
 
