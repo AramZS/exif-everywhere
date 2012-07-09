@@ -648,7 +648,7 @@ function exif_gallery_shortcode($attr){
 		$img = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_image_src($id, $size, false) : wp_get_attachment_image_src($id, $size, false);
 
 		$output .= '
-				<img src="' . $img[0] . '" width="' . $img[1] . '" height="' . $img[2] . '" />
+				<a href="'. $img[0] . '" rel="lightbox"><img src="' . $img[0] . '" width="' . $img[1] . '" height="' . $img[2] . '" /></a>
 				';
 		if ( $captiontag && trim($attachment->post_excerpt) ) {
 			$output .= "
