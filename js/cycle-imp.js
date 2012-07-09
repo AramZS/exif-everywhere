@@ -1,4 +1,4 @@
-			jQuery(document).ready(function () {
+jQuery(document).ready(function () {
 			
 				var counter = 0;
 				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
@@ -189,6 +189,20 @@
 			
 		});
 		
+	});
+	
+	jQuery(function() {					
+		
+		jQuery('.slide a img').mouseenter(function() {
+		
+		
+			
+		}).mouseleave(function(){
+			
+		
+			
+		});
+	
 	});
 
 				

@@ -1,0 +1,11 @@
+					//<div class="frontpagePlus"><g:plusone size="medium" href="<?php the_permalink(); ?>"></g:plusone></div>
+			var socialbox = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' + 
+								pathname + 
+								'" show_faces="false" width="380" action="recommend" font=""></fb:like>' +
+								'<div class="frontpageTweet"><a href="http://twitter.com/share" class="twitter-share-button" data-url="' +
+								pathname + 
+								'" data-text="<?php the_title(); ?>" data-count="horizontal" data-via="nitemaremodenet">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>
+					
+					<div class="stumble-button socialtab left">
+						<script src="http://www.stumbleupon.com/hostedbadge.php?s=2"></script>
+					</div>

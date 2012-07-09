@@ -526,6 +526,14 @@ add_action( 'init', 'display_exif_init_jquery' );
 //add_filter( 'the_content', 'display_exif_filter', 50 );
 add_action( 'admin_menu', 'display_exif_add_pages');
 
+function pinlink($link) {
+
+	//Removing the http:// part. 
+	$pinReadyLink = substr( $link, 7 );
+
+	return $pinReadyLink;
+
+}
 
 //Set up the shortcode
 function exif_gallery_shortcode($attr){
@@ -644,7 +652,8 @@ function exif_gallery_shortcode($attr){
 		   <div class="cycleContainer">';
 				
 				
-
+	$c = 0;
+	$permaPin = pinlink(the_permalink());
 	foreach ( $attachments as $id => $attachment ) {
 		
 		$output .= '<div class="slide">';
@@ -652,11 +661,30 @@ function exif_gallery_shortcode($attr){
 		$img = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_image_src($id, $size, false) : wp_get_attachment_image_src($id, $size, false);
 
 //Took out width="' . $img[1] . '" height="' . $img[2] . '"		
+//May want to add social js to footer hook instead. 
+//http://pinterest.com/about/goodies/		
+		$permaPinImg = pinlink($img[0]);
 		
 		$output .= '
 				<a href="'. $img[0] . '" rel="lightbox"><img src="' . $img[0] . '" /></a>
 				';
-				
+		
+		$output .= '<div class="slider-social-box disappear">
+						<div class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . the_permalink() . '#' . $c . '" show_faces="false" width="380" action="recommend" font=""></fb:like></div>
+					
+						<div class="plus"><g:plusone size="medium" href="<?php the_permalink(); ?>"></g:plusone></div>
+					
+						<div class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-url="' . the_permalink() . '#' . $c . '" data-text="' . the_title() . '" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>
+					
+						<div class="stumble">
+							<script src="http://www.stumbleupon.com/hostedbadge.php?s=2"></script>
+						</div>
+						
+						<div class="pin">
+							<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script><a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2F' . $permaPin . '#' . $c . '&media=http%3A%2F%2F' . $permaPinImg . '&description='. wptexturize($attachment->post_excerpt) .'" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+						</div>
+				</div>';
+		
 		$output .= '<div class="exif-data disappear">';
 		$output .= display_exif_single_replace_cb($img[0]);
 		$output .= '</div>';
@@ -668,6 +696,7 @@ function exif_gallery_shortcode($attr){
 				</{$captiontag}>";
 		}
 			$output .= '</div>';
+			$c++;
 	}
 
 
@@ -685,5 +714,6 @@ function exif_gallery_shortcode($attr){
 }
 
 add_shortcode( 'exifgallery', 'exif_gallery_shortcode' );
+
 
 ?>
