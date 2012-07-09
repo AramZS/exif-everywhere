@@ -1,3 +1,10 @@
+.overall-cycle-container{
+
+	clear:both;
+	margin: 8px auto;
+
+}
+
 .cycleContainer {
 
 	overflow: hidden;

@@ -73,6 +73,13 @@ function add_photo_credit_option( $form_fields, $post ) {
 
 add_filter('attachment_fields_to_edit', 'add_photo_credit_option', null, 2);
 
+if ( function_exists( 'add_theme_support' ) ) {
+	add_theme_support( 'post-thumbnails' );
+}
+if ( function_exists( 'add_image_size' ) ) { 
+	add_image_size( 'slider-thumb', 1024, 600, true ); //(hard cropped)}
+}
+
 function style_exif_slider_plugin () {
 
 	//Want to replace the default styling applied to tweets? Just add this CSS file to your stylesheet's directory.
@@ -511,8 +518,8 @@ function display_exif_init_jquery() {
 add_action( 'init', 'display_exif_init_jquery' );
 
 
-add_action( 'wp_head', 'display_exif_js' );
-add_filter( 'the_content', 'display_exif_filter', 50 );
+//add_action( 'wp_head', 'display_exif_js' );
+//add_filter( 'the_content', 'display_exif_filter', 50 );
 add_action( 'admin_menu', 'display_exif_add_pages');
 
 
@@ -546,9 +553,10 @@ function exif_gallery_shortcode($attr){
 			'autoplay' => 'yes',
 			'title' => 'Gallery',
 			'fontsize' => '1em',
-			'itemtag'    => 'dl',
-			'icontag'    => 'dt',
-			'captiontag' => 'dd',
+//			'itemtag'    => 'dl',
+//			'icontag'    => 'dt',
+//			'captiontag' => 'dd',
+			'width' => 1024,
 			'share' => 'on',
 			'embed' => 'on',
 			'order' => 'ASC',
@@ -580,7 +588,7 @@ function exif_gallery_shortcode($attr){
 				<?php
 				
 					
-
+	$columns = "1";
 	$id = intval($id);
 	if ( 'RAND' == $order )
 		$orderby = 'none';
@@ -619,53 +627,28 @@ function exif_gallery_shortcode($attr){
 	$selector = "gallery-{$instance}";
 
 	$gallery_style = $gallery_div = '';
-	if ( apply_filters( 'use_default_gallery_style', true ) )
-		$gallery_style = "
-		<style type='text/css'>
-			#{$selector} {
-				margin: auto;
-			}
-			#{$selector} .gallery-item {
-				float: {$float};
-				margin-top: 10px;
-				text-align: center;
-				width: {$itemwidth}%;
-			}
-			#{$selector} img {
-				border: 2px solid #cfcfcf;
-			}
-			#{$selector} .gallery-caption {
-				margin-left: 0;
-			}
-		</style>
-		<!-- see gallery_shortcode() in wp-includes/media.php -->";
+
 	$size_class = sanitize_html_class( $size );
-	$gallery_div = "<div id='$selector' class='gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}'>";
 	$output = apply_filters( 'gallery_style', $gallery_style . "\n\t\t" . $gallery_div );
 
 	$i = 0;
 	foreach ( $attachments as $id => $attachment ) {
-		$link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
+		
+		$output .= '<div class="slide">';
+		
+		$img = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_image_src($id, $size, false) : wp_get_attachment_image_src($id, $size, false);
 
-		$output .= "<{$itemtag} class='gallery-item'>";
-		$output .= "
-			<{$icontag} class='gallery-icon'>
-				$link
-			</{$icontag}>";
+		$output .= '
+				<img src="' . $img[0] . '" width="' . $img[1] . '" height="' . $img[2] . '" />
+				';
 		if ( $captiontag && trim($attachment->post_excerpt) ) {
 			$output .= "
 				<{$captiontag} class='wp-caption-text gallery-caption'>
 				" . wptexturize($attachment->post_excerpt) . "
 				</{$captiontag}>";
 		}
-		$output .= "</{$itemtag}>";
-		if ( $columns > 0 && ++$i % $columns == 0 )
-			$output .= '<br style="clear: both" />';
+			$output .= '</div>';
 	}
-
-	$output .= "
-			<br style='clear: both;' />
-		</div>\n";
 
 	return $output;
 					
