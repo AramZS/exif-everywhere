@@ -150,6 +150,21 @@ add_action( 'wp_enqueue_scripts', 'style_exif_slider_plugin', 1 );
 			
 		add_action('wp_head', 'jq_setup');
 	}
+	
+function socialjs() {
+
+	?>
+		<script type="text/javascript">
+		  (function() {
+			var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			po.src = 'https://apis.google.com/js/plusone.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		  })();
+		</script>
+	<?php
+
+}
+add_action('wp_footer', 'socialjs');
 
 /* This can be used later to create a taxonomy for the exif properties.
 function photo_taxonomy_init() {
@@ -653,7 +668,7 @@ function exif_gallery_shortcode($attr){
 				
 				
 	$c = 0;
-	$permaPin = pinlink(the_permalink());
+	$permaPin = pinlink(get_permalink());
 	foreach ( $attachments as $id => $attachment ) {
 		
 		$output .= '<div class="slide">';
@@ -670,18 +685,18 @@ function exif_gallery_shortcode($attr){
 				';
 		
 		$output .= '<div class="slider-social-box disappear">
-						<div class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . the_permalink() . '#' . $c . '" show_faces="false" width="380" action="recommend" font=""></fb:like></div>
+						<div class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . get_permalink() . '#' . $c . '" show_faces="false" width="380" action="recommend" font=""></fb:like></div>
 					
-						<div class="plus"><g:plusone size="medium" href="<?php the_permalink(); ?>"></g:plusone></div>
+						<div class="plus"><g:plusone annotation="inline" href="' . get_permalink() . '#' . $c . '"></g:plusone></div>
 					
-						<div class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-url="' . the_permalink() . '#' . $c . '" data-text="' . the_title() . '" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>
+						<div class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-url="' . get_permalink() . '#' . $c . '" data-text="' . get_the_title() . '" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>
 					
 						<div class="stumble">
 							<script src="http://www.stumbleupon.com/hostedbadge.php?s=2"></script>
 						</div>
 						
 						<div class="pin">
-							<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script><a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2F' . $permaPin . '#' . $c . '&media=http%3A%2F%2F' . $permaPinImg . '&description='. wptexturize($attachment->post_excerpt) .'" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+							<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script><a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2F' . $permaPin . '#' . $c . '&media=http%3A%2F%2F' . $permaPinImg . '&description='. wptexturize($attachment->post_excerpt) .'" class="pin-it-button" count-layout="horizontal"><img border="0" class="pinbutton" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
 						</div>
 				</div>';
 		

@@ -193,13 +193,13 @@ jQuery(document).ready(function () {
 	
 	jQuery(function() {					
 		
-		jQuery('.slide a img').mouseenter(function() {
+		jQuery('.slide').mouseenter(function() {
 		
-		
+			jQuery('.slider-social-box').removeClass('disappear');
 			
 		}).mouseleave(function(){
 			
-		
+			jQuery('.slider-social-box').addClass('disappear');
 			
 		});
 	
