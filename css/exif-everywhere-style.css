@@ -30,9 +30,10 @@
 
 #cycle-nav { 
 
-	margin: 0 auto;
-	width: 80%;
+	margin: 0;
+	width: 63.63636%;
 	padding: 0;
+	float: left;
 
 }
 #cycle-nav li { width: 58px; float: left; margin: 8px 4px; list-style: none; }
@@ -101,16 +102,16 @@
 .cyclenav.next, .sliderNext {
 
 	float:right;
-	margin-left: 4px;
-
+	width: 18.18182%;
+	text-align: right;
 
 }
 
 .cyclenav.prev, .sliderPrev {
 
 	float:left;
-	margin-right: 4px;
-
+	width: 18.18182%;
+	text-align: left;
 
 }
 
