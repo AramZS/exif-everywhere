@@ -600,6 +600,7 @@ function exif_gallery_shortcode($attr){
 //			'icontag'    => 'dt',
 //			'captiontag' => 'dd',
 			'width' => 1024,
+			'height' => 400,
 			'share' => 'on',
 			'embed' => 'on',
 			'order' => 'ASC',
@@ -695,16 +696,17 @@ function exif_gallery_shortcode($attr){
 		$attachedPhotog = get_post_meta($attachedID, '_photocredit', true);
 		$output .= '
 				<a href="'. $img[0] . '" rel="lightbox"><img src="' . $img[0] . '" /></a>
-				';
+				<div class="clear">&nbsp;</div>';
 				
-		$output .= '
+		$output .= '<div class="slide-text">
 						<div class="caption">
 						
 						' . $attachment->post_excerpt . '
 						
-						</div>
-						<div class="photog">' . $attachedPhotog . '</div>
-					';
+						<div class="clear">&nbsp;</div></div>
+						<div class="photog">' . $attachedPhotog . '<div class="clear">&nbsp;</div></div>
+						<div class="clear">&nbsp;</div>
+					</div>';
 		
 		$output .= '<div class="slider-social-box disappear">
 						<div class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . get_permalink() . '#' . $c . '" show_faces="false" width="380" action="recommend" font=""></fb:like></div>
@@ -725,15 +727,12 @@ function exif_gallery_shortcode($attr){
 		$output .= '<div class="exif-data disappear">';
 		$output .= display_exif_single_replace_cb($img[0]);
 		$output .= '</div>';
-				
-		if ( $captiontag && trim($attachment->post_excerpt) ) {
-			$output .= "
-				<{$captiontag} class='wp-caption-text gallery-caption'>
-				" . wptexturize($attachment->post_excerpt) . "
-				</{$captiontag}>";
-		}
+
+		
+		
 			$output .= '</div>';
 			$c++;
+			
 	}
 
 
@@ -741,10 +740,9 @@ function exif_gallery_shortcode($attr){
 				?>
 	<?php		
 	
-			$output .= '</div><!-- end of #cycleContainer -->';
-		$output .= '</div><!-- end of #overall-cycle-contained -->';
-	$output .= '</div><!-- end of #overall-cycle-container -->';
-	
+			$output .= '</div><!-- end of .cycleContainer -->';
+		$output .= '</div><!-- end of overall-cycle-contained -->';
+	$output .= '</div><!-- end of overall-cycle-container -->';
 
 	return $output;
 		

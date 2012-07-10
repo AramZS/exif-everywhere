@@ -1,5 +1,14 @@
 jQuery(document).ready(function () {
 			
+					var slideHeight = 0;
+					//Figure out the height of the nav and add to total height?
+					jQuery('.slide').each(function (i) {
+						var checkheight = jQuery(this).height();
+						if (checkheight > slideHeight) { slideHeight = checkheight; jQuery('.cycleContainer').height(slideHeight); }
+						
+					});
+
+			
 				var counter = 0;
 				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
 

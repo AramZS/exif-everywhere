@@ -14,10 +14,31 @@
 	border:1px solid #d6d6d6;
 	border-radius: 6px;
 	padding-bottom: 40px;
-	height: 380px;
+	min-height: 380px;
+	height: auto;
 	float: left;
 	width: 100%;
 
+}
+
+.slide {
+
+	min-height:380px;
+	height:auto;
+	float:left;
+
+}
+
+.clear:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clear {
+  zoom: 1;     /* triggers hasLayout in IE */
 }
 
 .cycleContainer img {
@@ -187,5 +208,12 @@ this element is the one that *you* will style the most.
 
 	width: 43px!important;
 	height: 20px;
+
+}
+
+.slide-text {
+
+	width: 100%;
+	clear: both;
 
 }
