@@ -63,7 +63,7 @@ License: GPL2
 function add_photo_credit_option( $form_fields, $post ) {  
 	
 	$form_fields['photocredit'] = array(  
-		'label' => '<span style="color:#ff0000; margin:0; padding:0;">'.__('Photo Credit').'</span> <br />'.__('Add Photographer Name / Photo Type to image'),
+		'label' => '<span style="color:#ff0000; margin:0; padding:0;">'.__('Photo Credit', 'display_exif').'</span> <br />'.__('Add Photographer Name / Photo Type to image', 'display_exif'),
 		'input' => 'text',
 		'value' => get_post_meta($post->ID, '_photocredit', true)  
 	);
@@ -72,6 +72,18 @@ function add_photo_credit_option( $form_fields, $post ) {
 }  
 
 add_filter('attachment_fields_to_edit', 'add_photo_credit_option', null, 2);
+
+// save custom option for images in media library
+
+function save_photo_credit_option($post, $attachment) {
+	if( isset($attachment['photocredit']) ){
+		update_post_meta($post['ID'], '_photocredit', $attachment['photocredit']);  
+	} 
+		
+	return $post;  
+}
+
+add_filter('attachment_fields_to_save', 'save_photo_credit_option', 10, 2);
 
 if ( function_exists( 'add_theme_support' ) ) {
 	add_theme_support( 'post-thumbnails' );
@@ -418,7 +430,7 @@ function display_exif_single_replace_cb( $filename ) {
 				
 			} /* foreach */
 //		}
-$data_cells .= 'TESTER';
+
 //		} /* if */
 	} /* if */
 
@@ -679,10 +691,20 @@ function exif_gallery_shortcode($attr){
 //May want to add social js to footer hook instead. 
 //http://pinterest.com/about/goodies/		
 		$permaPinImg = pinlink($img[0]);
-		
+		$attachedID = $attachment->ID;
+		$attachedPhotog = get_post_meta($attachedID, '_photocredit', true);
 		$output .= '
 				<a href="'. $img[0] . '" rel="lightbox"><img src="' . $img[0] . '" /></a>
 				';
+				
+		$output .= '
+						<div class="caption">
+						
+						' . $attachment->post_excerpt . '
+						
+						</div>
+						<div class="photog">' . $attachedPhotog . '</div>
+					';
 		
 		$output .= '<div class="slider-social-box disappear">
 						<div class="facebook"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . get_permalink() . '#' . $c . '" show_faces="false" width="380" action="recommend" font=""></fb:like></div>
