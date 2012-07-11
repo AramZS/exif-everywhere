@@ -140,7 +140,6 @@ jQuery(document).ready(function () {
 			}
 			
 		);
-
 		
 		//When we create the fullscreen, let's pause the thing beneath it. We can resume it later on clicking the full screen close button.
 		//Based off of code at http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/super-simple-lightbox-with-css-and-jquery/
@@ -213,8 +212,16 @@ jQuery(document).ready(function () {
 		});
 	
 	});
-
-				
+	
+	jQuery(function() {
+			jQuery('.shareButton').click(function(e) {
+				e.preventDefault();
+				var cycleToShare = jQuery('.overall-cycle-contained');
+				var cycleShare = jQuery.extend(true, {}, cycleToShare);
+				//Need to get the javascript external links, add them together with the code and put it into one package.
+				//No need to pull any of the php involved. Just the final generated code. 
+			});
+	});
 });
 			
 			

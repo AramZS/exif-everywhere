@@ -667,12 +667,12 @@ function exif_gallery_shortcode($attr){
 			<div class="cycle-controls">
 				'; 
 					if ($exif == 'yes') {
-					$output .= '<a id="exifButton" href="#">EXIF</a>';
+					$output .= '<button id="exifButton" href="#">EXIF</button>';
 					}
 				$output .='
-				<a id="resumeButton" onClick="api.play()" href="#">Play</a> 
-				<a id="pauseButton" onClick="api.pause()" href="#">Stop</a> 
-				<a id="fullButton" href="#">Full Screen</a>
+				<button id="resumeButton" onClick="api.play()" href="#">Play</button> 
+				<button id="pauseButton" onClick="api.pause()" href="#">Stop</button> 
+				<button id="fullButton" href="#">Full Screen</button>
 			</div>
 		</div>
 		

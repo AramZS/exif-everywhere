@@ -5,6 +5,18 @@
 
 }
 
+.cycle-title {
+
+	float:left;
+
+}
+
+.cycle-controls {
+
+	float:right;
+
+}
+
 .cycleContainer {
 
 	overflow: hidden;
