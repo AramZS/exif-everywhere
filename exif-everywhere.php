@@ -662,7 +662,7 @@ function exif_gallery_shortcode($attr){
 	<div class="overall-cycle-contained">		
 		<div class="cycle-control">
 			<div class="cycle-title">
-				<h2><?php echo $title; ?></h2>
+				<h2>' . $title . '</h2>
 			</div>
 			<div class="cycle-controls">
 				'; 
