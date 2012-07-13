@@ -1,18 +1,32 @@
 <?php
 
 
-	Header("content-type: application/x-javascript");
+//	Header("content-type: application/x-javascript");
 	
-	$filelocation = $_SERVER['SCRIPT_FILENAME'];
+	$filerel = $_SERVER['REQUEST_URI'];
+	$serverlocation = $_SERVER['HTTP_HOST'];
+	$filelocation = 'http://' . $serverlocation . $filerel;
 	$fulllocation = substr_replace($filelocation, '', -15);
 	
 	$baselocation = substr_replace($fulllocation, '', -25);
 	$sitelocation = substr_replace($baselocation, '', -11);
-	$wpneeded = $sitelocation . '/wp-blog-header.php';
+	
+	
+	$relfilelocation = $_SERVER['SCRIPT_FILENAME'];
+	$relfulllocation = substr_replace($relfilelocation, '', -15);
+	
+	$relbaselocation = substr_replace($relfulllocation, '', -25);
+	$relsitelocation = substr_replace($relbaselocation, '', -11);
+
+	
+	$wpneeded = $relsitelocation . '/wp-blog-header.php';
 //	print_r($wpneeded);
 //	die();
 	define('WP_USE_THEMES', false);
 	require($wpneeded);
+//	require('/home1/chronoto/public_html/tandv/wp-blog-header.php');
+	
+// Post vs Get? 	http://php.net/manual/en/reserved.variables.get.php http://www.w3schools.com/PHP/php_post.asp
 	
 	$theGet = htmlspecialchars($_GET["get"]);
 	$theInclude = htmlspecialchars($_GET["include"]);
@@ -63,7 +77,7 @@
 			'include' => '',
 			'exclude' => '',
 			'exif' => 'yes',
-			'id' => $post->ID,
+			'id' => 139,
 			'autoplay' => 'yes',
 			'title' => 'Gallery',
 			'fontsize' => '1em',
@@ -90,6 +104,7 @@
 		
 		
 		<link rel="stylesheet" type="text/css" href="<?php echo $fulllocation . 'css/lightbox.css'; ?>">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="<?php echo $fulllocation . 'js/jquery.cycle.all.js'; ?>"></script>
 		<script src="<?php echo $fulllocation . 'js/jquery.tools.min.js'; ?>"></script>
 		<script src="<?php echo $fulllocation . 'js/lightbox.js'; ?>"></script>
