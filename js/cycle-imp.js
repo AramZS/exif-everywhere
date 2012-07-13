@@ -215,9 +215,13 @@ jQuery(document).ready(function () {
 	
 	jQuery(function() {
 			jQuery('.shareButton').click(function(e) {
+			
 				e.preventDefault();
-				var cycleToShare = jQuery('.overall-cycle-contained');
-				var cycleShare = jQuery.extend(true, {}, cycleToShare);
+				mywindow = window.open("http://www.javascript-coder.com", "mywindow", "location=1,status=1,scrollbars=1,  width=100,height=100");
+				mywindow.moveTo(0, 0);
+				
+//				var cycleToShare = jQuery('.overall-cycle-contained');
+//				var cycleShare = jQuery.extend(true, {}, cycleToShare);
 				//Need to get the javascript external links, add them together with the code and put it into one package.
 				//No need to pull any of the php involved. Just the final generated code. 
 			});
