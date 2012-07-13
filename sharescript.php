@@ -80,6 +80,7 @@
 		);
 	
 	?>
+	<head>
 		<?php if ($theStyle == 0){
 		?><link rel="stylesheet" type="text/css" href="<?php echo $fulllocation . 'css/exif-everywhere-style.css'; ?>">
 		<?php } 
@@ -93,9 +94,12 @@
 		<script src="<?php echo $fulllocation . 'js/jquery.tools.min.js'; ?>"></script>
 		<script src="<?php echo $fulllocation . 'js/lightbox.js'; ?>"></script>
 		<script src="<?php echo $fulllocation . 'js/cycle-imp.js'; ?>"></script>
+	</head>
+	<body>
 	<?php
 	//echo socialjs();
-	die();
-	echo exif_gallery_shortcode($thePassedArgs);
+
+	echo exif_gallery_shortcode($testArray);
 
 ?>
+	</body>

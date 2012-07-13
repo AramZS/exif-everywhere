@@ -1,0 +1,16 @@
+	?>
+		<?php if ($theStyle == 0){
+		?><link rel="stylesheet" type="text/css" href="<?php echo $fulllocation . 'css/exif-everywhere-style.css'; ?>">
+		<?php } 
+		if ($theStyle == 1){
+		?><link rel="stylesheet" type="text/css" href="<?php echo $stylesheetlocation . 'user-exif-slider-style.css'; ?>">
+		<?php } ?>
+		
+		
+		<link rel="stylesheet" type="text/css" href="<?php echo $fulllocation . 'css/lightbox.css'; ?>">
+		<script src="<?php echo $fulllocation . 'js/jquery.cycle.all.js'; ?>"></script>
+		<script src="<?php echo $fulllocation . 'js/jquery.tools.min.js'; ?>"></script>
+		<script src="<?php echo $fulllocation . 'js/lightbox.js'; ?>"></script>
+		<script src="<?php echo $fulllocation . 'js/cycle-imp.js'; ?>"></script>
+	<?php
+	//echo socialjs();
