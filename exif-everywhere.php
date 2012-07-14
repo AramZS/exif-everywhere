@@ -567,27 +567,10 @@ function exif_gallery_shortcode($attr){
 
 //To make this as easy to use and as feature-rich as possible, we'll duplicate some of the same options as the default gallery shortcode.
 //Find the original at wp-includes/media.php ln 777
-
+	
 	global $post;
-
-	static $instance = 0;
-	$instance++;
-
-	// Allow plugins/themes to override the default gallery template.
-	$output = apply_filters('post_gallery', '', $attr);
-	if ( $output != '' )
-		return $output;
-
-	// We're trusting author input, so let's at least make sure it looks like a valid orderby statement
-	if ( isset( $attr['orderby'] ) ) {
-		$attr['orderby'] = sanitize_sql_orderby( $attr['orderby'] );
-		if ( !$attr['orderby'] )
-			unset( $attr['orderby'] );
-	}
-
 	
-	
-		extract( shortcode_atts( array(
+	$attrStore = shortcode_atts( array(
 			'get' => '',
 			'include' => '',
 			'exclude' => '',
@@ -606,7 +589,26 @@ function exif_gallery_shortcode($attr){
 			'order' => 'ASC',
 			'orderby' => 'menu_order ID',
 			'size' => 'large'
-		), $attr ) );
+		), $attr );
+
+	static $instance = 0;
+	$instance++;
+
+	// Allow plugins/themes to override the default gallery template.
+	$output = apply_filters('post_gallery', '', $attr);
+	if ( $output != '' )
+		return $output;
+
+	// We're trusting author input, so let's at least make sure it looks like a valid orderby statement
+	if ( isset( $attr['orderby'] ) ) {
+		$attr['orderby'] = sanitize_sql_orderby( $attr['orderby'] );
+		if ( !$attr['orderby'] )
+			unset( $attr['orderby'] );
+	}
+
+	
+	
+		extract( $attrStore );
 		
 					
 	$columns = "1";
@@ -669,6 +671,12 @@ function exif_gallery_shortcode($attr){
 					if ($exif == 'yes') {
 					$output .= '<button id="exifButton" href="#">EXIF</button>';
 					}
+					if ($share == 'on') {
+					
+						$output .= '<button id="shareButton">Embed</a>';
+					
+					}
+					
 				$output .='
 				<button id="resumeButton" onClick="api.play()" href="#">Play</button> 
 				<button id="pauseButton" onClick="api.pause()" href="#">Stop</button> 
@@ -738,9 +746,33 @@ function exif_gallery_shortcode($attr){
 
 					
 				?>
-	<?php		
-	
+	<?php	
+			$siteURL = get_bloginfo('url');
 			$output .= '</div><!-- end of .cycleContainer -->';
+			$output .= '<div class="embederBox disappear">';
+				
+			$output .=				'<form action="">
+							<textarea name="embedField" cols="60" rows="6" type="text"  disabled="disabled">
+							&#60;iframe src&#61;&#34;'
+							 . $siteURL . '/wp-content/plugins/exif-everywhere/sharescript.php?';
+			
+			$sc = 0;
+			foreach ($attrStore as $key => $value) {
+			
+				if (($value != '') && ($sc == 0)){
+					$output .= $key . '=' . htmlspecialchars($value);
+					$sc++;
+				} 
+				if (($value != '') && ($sc > 0)){
+					$output .= '&' . $key . '=' . htmlspecialchars($value);
+					$sc++;
+				}
+			
+			}
+			
+			$output .= '&#34; width&#61;&#34;100%&#34; scrolling&#61;&#34;no&#34; frameborder&#61;&#34;0&#34;&#62; </textarea>
+							 </form>
+						</div>';
 		$output .= '</div><!-- end of overall-cycle-contained -->';
 	$output .= '</div><!-- end of overall-cycle-container -->';
 

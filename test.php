@@ -49,7 +49,15 @@
 				?>
 			
 			</div><!-- end of #cycleContainer -->
+
 		</div><!-- end of #overall-cycle-contained -->
 	</div><!-- end of #overall-cycle-container -->
+				<?php echo '<div class="embederBox disappear> 
+							<form action="">
+							<textarea name="embedField" cols="20" rows="20" type="text"  disabled="disabled">
+							&#60;iframe src&#61;&#34;'
+							 . 'site' . '/wp-content/plugins/exif-everywhere/sharescript.php?' . '&#34; width&#61;&#34;100%&#34; scrolling&#61;&#34;no&#34; frameborder&#61;&#34;0&#34;&#62; </textarea>
+							 </form>
+						</div>'; ?>
 </body>
 </html>
