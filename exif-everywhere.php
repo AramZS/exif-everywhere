@@ -109,7 +109,9 @@ function style_exif_slider_plugin () {
 	}
 	
 	wp_register_style( 'lightbox', plugins_url('css/lightbox.css', __FILE__) );
+	wp_register_style( 'reveal', plugins_url('reveal/reveal.css', __FILE__) );
 	wp_enqueue_style( 'lightbox' );
+	wp_enqueue_style( 'reveal' );
 
 }
 
@@ -130,6 +132,7 @@ add_action( 'wp_enqueue_scripts', 'style_exif_slider_plugin', 1 );
 				wp_enqueue_script('jquery-tools', plugins_url('js/jquery.tools.min.js', __FILE__), array('jquery'));
 				wp_enqueue_script('jquery-lightbox', plugins_url('js/lightbox.js', __FILE__), array('jquery'));
 				wp_enqueue_script('jquery-cycle-imp', plugins_url('js/cycle-imp.js', __FILE__), array('jquery-cycle', 'jquery-tools'));
+				wp_enqueue_script('jquery-reveal', plugins_url('reveal/jquery.reveal.js', __FILE__), array('jquery-cycle', 'jquery-tools'));
 
 		}
 
@@ -155,6 +158,7 @@ add_action( 'wp_enqueue_scripts', 'style_exif_slider_plugin', 1 );
 				<script src="<?php echo plugins_url('js/jquery.tools.min.js', __FILE__); ?>"></script>
 				<script src="<?php echo plugins_url('js/lightbox.js', __FILE__); ?>"></script>
 				<script src="<?php echo plugins_url('js/cycle-imp.js', __FILE__); ?>"></script>
+				<script src="<?php echo plugins_url('reveal/jquery.reveal.js', __FILE__); ?>"></script>
 				
 					
 			<?php
@@ -673,7 +677,7 @@ function exif_gallery_shortcode($attr){
 					}
 					if ($share == 'on') {
 					
-						$output .= '<button id="shareButton">Embed</a>';
+						$output .= '<button class="shareButton" data-reveal-class="embederBox">Embed</a>';
 					
 					}
 					
@@ -749,11 +753,11 @@ function exif_gallery_shortcode($attr){
 	<?php	
 			$siteURL = get_bloginfo('url');
 			$output .= '</div><!-- end of .cycleContainer -->';
-			$output .= '<div class="embederBox disappear">';
-				
-			$output .=				'<form action="">
+			$output .= '<div class="embederBox reveal-modal">';
+			$output .= '<h1>Embed this slider</h1>';
+			$output .=	'<form action="">
 							<textarea name="embedField" cols="60" rows="6" type="text"  disabled="disabled">
-							&#60;iframe src&#61;&#34;'
+&#60;iframe src&#61;&#34;'
 							 . $siteURL . '/wp-content/plugins/exif-everywhere/sharescript.php?';
 			
 			$sc = 0;
@@ -772,7 +776,7 @@ function exif_gallery_shortcode($attr){
 			
 			$output .= '&#34; width&#61;&#34;100%&#34; scrolling&#61;&#34;no&#34; frameborder&#61;&#34;0&#34;&#62; </textarea>
 							 </form>
-						</div>';
+						<a class="close-reveal-modal">&#215;</a></div>';
 		$output .= '</div><!-- end of overall-cycle-contained -->';
 	$output .= '</div><!-- end of overall-cycle-container -->';
 

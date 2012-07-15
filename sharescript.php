@@ -2,8 +2,10 @@
 
 
 //	Header("content-type: application/x-javascript");
-	
-	$filerel = $_SERVER['REQUEST_URI'];
+//print_r($_SERVER); die();	
+	$filerelq = $_SERVER['REQUEST_URI'];
+	$querystring = '?' . $_SERVER['QUERY_STRING'];
+	$filerel = str_replace($querystring, '', $filerelq);
 	$serverlocation = $_SERVER['HTTP_HOST'];
 	$filelocation = 'http://' . $serverlocation . $filerel;
 	$fulllocation = substr_replace($filelocation, '', -15);
@@ -104,17 +106,26 @@
 		
 		
 		<link rel="stylesheet" type="text/css" href="<?php echo $fulllocation . 'css/lightbox.css'; ?>">
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="<?php echo $fulllocation . 'js/jquery.cycle.all.js'; ?>"></script>
-		<script src="<?php echo $fulllocation . 'js/jquery.tools.min.js'; ?>"></script>
-		<script src="<?php echo $fulllocation . 'js/lightbox.js'; ?>"></script>
-		<script src="<?php echo $fulllocation . 'js/cycle-imp.js'; ?>"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="<?php echo $fulllocation . 'js/jquery.cycle.all.js'; ?>"></script>
+		<script type="text/javascript" src="<?php echo $fulllocation . 'js/jquery.tools.min.js'; ?>"></script>
+		<script type="text/javascript" src="<?php echo $fulllocation . 'js/lightbox.js'; ?>"></script>
+		<script type="text/javascript" src="<?php echo $fulllocation . 'js/cycle-imp.js'; ?>"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function () {
+				jQuery(function() {
+					jQuery('.shareButton').remove();
+					jQuery('.embederBox').remove();
+				});
+			});
+		</script>
 	</head>
 	<body>
 	<?php
 	//echo socialjs();
 
-	echo exif_gallery_shortcode($testArray);
+	echo exif_gallery_shortcode($thePassedArgs);
 
-?>
+	?>
+	<div class="embedLink"><h4><?php echo '<a href="' . $sitelocation . '">' ?>Get this slideshow.</a></h4></div>
 	</body>

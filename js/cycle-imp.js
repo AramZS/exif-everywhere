@@ -214,16 +214,16 @@ jQuery(document).ready(function () {
 	});
 	
 	jQuery(function() {
-			jQuery('.shareButton').toggle(
-		
-			function(){
-				jQuery('.embederBox').removeClass('disappear'); 
-			},
-			function() { 
-				jQuery('.embederBox').addClass('disappear'); 
-			}
 			
-		);
+			jQuery('.shareButton').click(function(e) {
+				e.preventDefault();
+				var embederToCopy = jQuery('.embederBox');
+				var embederBox = jQuery.extend(true, {}, embederToCopy);
+				
+				
+				jQuery('body').append(embederBox);
+				jQuery('.embederBox').reveal();
+			});
 	});
 });
 			
