@@ -12,7 +12,8 @@ jQuery(document).ready(function () {
 				var counter = 0;
 				var thumbs = jQuery('.cycleContainer div.slide').find("img").map(function() { return jQuery(this).attr('src'); });
 
-				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav scrollable"></ul>');
+				jQuery('.cycleContainer').after('<ul id="cycle-nav" class="cyclenav cyclenavbox scrollable"></ul>');
+				jQuery('.cyclenavbox').before('<div class="slidernav"><div class="sliderPrev"><a class="sliderPrev" href="#"><span class="arrow-w sliderPrev"></span></a></div><div class="sliderNext"><a class="sliderNext" href="#"><span class="arrow-e sliderNext"></span></a></div></div></div>');
 				
 				jQuery('#cycle-nav').before('<div class="cyclenav prev"><a class="prev" href="#"><span class="arrow-w prev"></span></a></div>').after('<div class="cyclenav next"><a class="next" href="#"><span class="arrow-e next"></span></a></div></div>');
 				

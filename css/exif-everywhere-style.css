@@ -33,6 +33,13 @@
 
 }
 
+.slidernav {
+
+	float:left;
+	width: 100%;
+
+}
+
 .slide {
 
 	min-height:380px;
