@@ -87,6 +87,7 @@
 						modalBG.css({"display":"block"});	
 						unlockModal()				
 					}
+					
 				}
 				modal.unbind('reveal:open');
 			}); 	
@@ -120,7 +121,9 @@
 					}		
 				}
 				modal.unbind('reveal:close');
-			});     
+			});
+
+			
    	
 /*---------------------------
  Open and add Closing Listeners
@@ -153,6 +156,8 @@
 			function lockModal() {
 				locked = true;
 			}	
+			
+			
 			
         });//each call
     }//orbit plugin call

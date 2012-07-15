@@ -217,12 +217,9 @@ jQuery(document).ready(function () {
 			
 			jQuery('.shareButton').click(function(e) {
 				e.preventDefault();
-				var embederToCopy = jQuery('.embederBox');
-				var embederBox = jQuery.extend(true, {}, embederToCopy);
-				
-				
-				jQuery('body').append(embederBox);
+
 				jQuery('.embederBox').reveal();
+				
 			});
 	});
 });
